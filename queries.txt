@@ -8,6 +8,34 @@
   }
 }
 
+// more
+{
+  user(id: "34") {
+    id
+    firstName
+    age
+    company {
+      id
+      name
+      description
+    }
+  }
+  company(id: "2") {
+    id
+    name
+    description
+    users {
+      id
+      firstName
+      company {
+        id
+        name
+        description
+      }
+    }
+  }
+}
+
 
 // query fragment
 // apple is just a reference name of query
@@ -21,4 +49,13 @@ fragment companyDetailsFragment on Company{
   id
   name
   description
+}
+
+// mutation query
+mutation{
+  addUser(firstName: "Test User2", age: 35){
+    firstName
+    age
+    id
+  }
 }
