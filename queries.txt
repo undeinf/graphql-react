@@ -1,0 +1,9 @@
+//first query with hardcoded data
+
+{
+  user(id: "23"){
+    id,
+    firstName,
+    age
+  }
+}
