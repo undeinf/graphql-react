@@ -7,3 +7,18 @@
     age
   }
 }
+
+
+// query fragment
+// apple is just a reference name of query
+{
+  apple: company(id: 1){
+    ...companyDetailFragment
+  }
+}
+
+fragment companyDetailsFragment on Company{
+  id
+  name
+  description
+}
