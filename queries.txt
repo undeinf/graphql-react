@@ -59,3 +59,38 @@ mutation{
     id
   }
 }
+
+// deleteUser and editUser mutation tests
+
+# mutation{
+#   addUser(firstName: "Test User3", age: 15){
+#     firstName
+#     age
+#     id
+#   }
+# }
+
+# mutation{
+#   deleteUser(userId: "A9I6fRP"){
+#     id
+#     firstName
+#     age
+#   }
+# }
+
+# {
+#   user(id: "sCXS9DN"){
+#     id
+#     firstName
+#     age
+#   }
+# }
+
+mutation{
+  editUser(userId: "sCXS9DN", firstName: "User 3"){
+    id,
+    firstName
+  }
+}
+
+

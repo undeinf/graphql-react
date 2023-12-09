@@ -102,6 +102,31 @@ const mutation = new GraphQLObjectType({
                 })
                 .then(res => res.data)
             }
+        },
+        deleteUser: {
+            type: UserType,
+            args: {
+                userId: {type: new GraphQLNonNull(GraphQLString)}
+            },
+            resolve(parentValue, {userId}){
+                return axios.delete(`http://localhost:3000/users/${userId}`)
+                    .then(res => res.data)
+            }
+        },
+        editUser: {
+            type: UserType,
+            args: {
+                userId: {type: new GraphQLNonNull(GraphQLString)},
+                firstName: {type:  GraphQLString},
+                age: {type:  GraphQLInt},
+                companyId: {type: GraphQLString}
+            },
+            // patch - use when some properties needs to update
+            // put - when you want to ooverride the existing object
+            resolve(parentValue, {userId, firstName}){
+                return axios.patch(`http://localhost:3000/users/${userId}`, args)
+                .then(res => res.data)
+            }
         }
     }
 })
