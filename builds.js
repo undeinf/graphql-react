@@ -37,6 +37,7 @@ console.log('Pre-build modifications completed');
 
 // post-build.js
 // post-build.js
+// post-build.js
 const fs = require('fs');
 const path = require('path');
 
@@ -59,11 +60,21 @@ function updateIndexHtml() {
     // Read the original index.html
     const content = fs.readFileSync(originalIndexPath, 'utf8');
     
-    // Update paths to include /m365-pages, but preserve base href
-    const updatedContent = content.replace(
-        /(src|href)="\/(?!m365-pages|http|https)(?!.*base.*>)/g,
-        '$1="/m365-pages/'
-    );
+    // Split the content into lines for more precise handling
+    const lines = content.split('\n');
+    const updatedLines = lines.map(line => {
+        // Skip the line containing base href
+        if (line.includes('<base href=')) {
+            return line;
+        }
+        // Update other paths
+        return line.replace(
+            /(src|href)="\/(?!m365-pages|http|https)/g,
+            '$1="/m365-pages/'
+        );
+    });
+    
+    const updatedContent = updatedLines.join('\n');
     
     // Write the updated content to the new location
     fs.writeFileSync(indexPath, updatedContent, 'utf8');
