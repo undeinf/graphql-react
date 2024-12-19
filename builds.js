@@ -37,7 +37,6 @@ console.log('Pre-build modifications completed');
 
 // post-build.js
 // post-build.js
-// post-build.js
 const fs = require('fs');
 const path = require('path');
 
@@ -58,26 +57,25 @@ function updateIndexHtml() {
     }
     
     // Read the original index.html
-    const content = fs.readFileSync(originalIndexPath, 'utf8');
+    let content = fs.readFileSync(originalIndexPath, 'utf8');
     
-    // Split the content into lines for more precise handling
-    const lines = content.split('\n');
-    const updatedLines = lines.map(line => {
-        // Skip the line containing base href
-        if (line.includes('<base href=')) {
-            return line;
-        }
-        // Update other paths
-        return line.replace(
-            /(src|href)="\/(?!m365-pages|http|https)/g,
-            '$1="/m365-pages/'
-        );
-    });
+    // First, temporarily mark the base href tag
+    content = content.replace(
+        /(<base\s+href=["'])\//,
+        '$1PRESERVE_BASE_HREF/'
+    );
     
-    const updatedContent = updatedLines.join('\n');
+    // Update all other paths
+    content = content.replace(
+        /(src|href)=["']\/(?!m365-pages|http|https)/g,
+        '$1="/m365-pages/'
+    );
+    
+    // Restore the original base href
+    content = content.replace('PRESERVE_BASE_HREF/', '/');
     
     // Write the updated content to the new location
-    fs.writeFileSync(indexPath, updatedContent, 'utf8');
+    fs.writeFileSync(indexPath, content, 'utf8');
     console.log('Successfully updated and moved index.html to m365-pages directory');
 }
 
@@ -106,8 +104,3 @@ function revertRouterChanges() {
         }
     });
 }
-
-console.log('Starting post-build modifications...');
-updateIndexHtml();
-revertRouterChanges();
-console.log('Post-build modifications completed');
