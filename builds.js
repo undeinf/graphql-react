@@ -36,6 +36,7 @@ console.log('Pre-build modifications completed');
 
 
 // post-build.js
+// post-build.js
 const fs = require('fs');
 const path = require('path');
 
@@ -58,9 +59,9 @@ function updateIndexHtml() {
     // Read the original index.html
     const content = fs.readFileSync(originalIndexPath, 'utf8');
     
-    // Update paths to include /m365-pages
+    // Update paths to include /m365-pages, but preserve base href
     const updatedContent = content.replace(
-        /(src|href)="\/(?!m365-pages|http|https)/g,
+        /(src|href)="\/(?!m365-pages|http|https)(?!.*base.*>)/g,
         '$1="/m365-pages/'
     );
     
@@ -69,6 +70,33 @@ function updateIndexHtml() {
     console.log('Successfully updated and moved index.html to m365-pages directory');
 }
 
+// Function to revert HashRouter back to BrowserRouter
+function revertRouterChanges() {
+    const possibleFiles = ['./src/index.js', './src/App.js'];
+    
+    possibleFiles.forEach(filePath => {
+        if (fs.existsSync(filePath)) {
+            const content = fs.readFileSync(filePath, 'utf8');
+            
+            // Revert the import statement
+            let updatedContent = content.replace(
+                /import\s*?{\s*?HashRouter(\s+as\s+Router)?[\s,]*?}.*?from\s*?['"]react-router-dom['"]/g,
+                `import { BrowserRouter as Router } from 'react-router-dom'`
+            );
+            
+            // Revert the router components
+            updatedContent = updatedContent
+                .replace(/<HashRouter>/g, '<BrowserRouter>')
+                .replace(/<\/HashRouter>/g, '</BrowserRouter>')
+                .replace(/<HashRouter\s/g, '<BrowserRouter ');
+                
+            fs.writeFileSync(filePath, updatedContent, 'utf8');
+            console.log(`Reverted router changes in ${filePath}`);
+        }
+    });
+}
+
 console.log('Starting post-build modifications...');
 updateIndexHtml();
+revertRouterChanges();
 console.log('Post-build modifications completed');
