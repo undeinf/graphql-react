@@ -38,7 +38,7 @@ interface PendingAction {
 }
 
 interface MenuProps {
-  menuConfig: MenuItemConfig;
+  menuConfig: MenuItemConfig[];
   pendingAction: PendingAction;
   onMenuItemClick?: (key: string) => void;
 }
@@ -83,7 +83,7 @@ const MenuItems: React.FC<MenuItemsProps> = ({
 
     const suffix = suffixValue ? ` (${suffixValue})` : '';
     const label = typeof item.label === 'object' ? 
-      item.label[Object.keys(item.label)[0]] : 
+      item.label[Object.keys(item.label)[0]][0] : 
       item.label;
 
     if (item.children && item.children.length > 0) {
@@ -150,7 +150,7 @@ const MobileMenu: React.FC<MenuProps> = ({
         <DialogBody>
           <DialogContent>
             <MenuItems
-              items={menuConfig.children || []}
+              items={menuConfig}
               pendingAction={pendingAction}
               onMenuItemClick={onMenuItemClick}
               isMobile={true}
@@ -168,33 +168,41 @@ const DesktopMenu: React.FC<MenuProps> = ({
   pendingAction, 
   onMenuItemClick 
 }) => {
-  const buttonSuffixValue = menuConfig.suffix ? 
-    new Function('pendingAction', `return ${menuConfig.suffix}`)(pendingAction) : 
-    null;
-  const buttonSuffix = buttonSuffixValue ? ` (${buttonSuffixValue})` : '';
-
-  const label = typeof menuConfig.label === 'object' ? 
-    menuConfig.label[Object.keys(menuConfig.label)[0]] : 
-    menuConfig.label;
-
   return (
-    <Menu>
-      <MenuTrigger>
-        <Button>
-          {label}{buttonSuffix}
-        </Button>
-      </MenuTrigger>
-      <MenuPopover>
-        <MenuList>
-          <MenuItems
-            items={menuConfig.children || []}
-            pendingAction={pendingAction}
-            onMenuItemClick={onMenuItemClick}
-            isMobile={false}
-          />
-        </MenuList>
-      </MenuPopover>
-    </Menu>
+    <>
+      {menuConfig.map((config) => {
+        const buttonSuffixValue = config.suffix ? 
+          new Function('pendingAction', `return ${config.suffix}`)(pendingAction) : 
+          null;
+        const buttonSuffix = buttonSuffixValue ? ` (${buttonSuffixValue})` : '';
+
+        const label = typeof config.label === 'object' ? 
+          config.label[Object.keys(config.label)[0]][0] : 
+          config.label;
+
+        if (config.isHidden) return null;
+
+        return (
+          <Menu key={config.key}>
+            <MenuTrigger>
+              <Button>
+                {label}{buttonSuffix}
+              </Button>
+            </MenuTrigger>
+            <MenuPopover>
+              <MenuList>
+                <MenuItems
+                  items={config.children || []}
+                  pendingAction={pendingAction}
+                  onMenuItemClick={onMenuItemClick}
+                  isMobile={false}
+                />
+              </MenuList>
+            </MenuPopover>
+          </Menu>
+        );
+      })}
+    </>
   );
 };
 
@@ -204,8 +212,6 @@ const ResponsiveActionsMenu: React.FC<MenuProps> = ({
   onMenuItemClick 
 }) => {
   const isMobile = useIsMobile();
-
-  if (menuConfig.isHidden) return null;
 
   return isMobile ? (
     <MobileMenu
@@ -224,18 +230,9 @@ const ResponsiveActionsMenu: React.FC<MenuProps> = ({
 
 export default ResponsiveActionsMenu;
 
-// Type declarations for usage
-type MenuKey = {
-  Action_Required: string;
-  Guest_Access_Review: string;
-  Attestation_Paneling_No_Use: string;
-  Attestation_Paneing: string;
-  Power_Platform_Attestation_Pending: string;
-};
-
-// Usage example:
+// Example usage:
 /*
-const menuConfig: MenuItemConfig = {
+const menuConfig: MenuItemConfig[] = [{
   label: { MenuLabels: ["MenuKey.Action_Required"] },
   key: "MenuKey.Action_Required",
   icon: "<SetActionIcon />",
@@ -264,7 +261,7 @@ const menuConfig: MenuItemConfig = {
       ]
     }
   ]
-};
+}];
 
 const pendingAction: PendingAction = {
   actionRequiredPendingCount: 5,
