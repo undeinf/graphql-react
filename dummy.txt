@@ -15,13 +15,46 @@ import {
 } from "@fluentui/react-components";
 import { List24Regular } from "@fluentui/react-icons";
 
+// Types for menu configuration
+interface MenuLabels {
+  [key: string]: string[];
+}
+
+interface MenuItemConfig {
+  label: MenuLabels | string;
+  key: string;
+  icon?: string;
+  isHidden?: boolean;
+  isExpanded?: boolean;
+  suffix?: string;
+  children?: MenuItemConfig[];
+}
+
+interface PendingAction {
+  actionRequiredPendingCount?: number;
+  guestAccessReviewPendingCount?: number;
+  certificationPendingCount?: number;
+  [key: string]: number | undefined;
+}
+
+interface MenuProps {
+  menuConfig: MenuItemConfig;
+  pendingAction: PendingAction;
+  onMenuItemClick?: (key: string) => void;
+}
+
+interface MenuItemsProps extends Omit<MenuProps, 'menuConfig'> {
+  items: MenuItemConfig[];
+  isMobile: boolean;
+}
+
 // Custom hook for detecting mobile screen
-const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false);
+const useIsMobile = (): boolean => {
+  const [isMobile, setIsMobile] = useState<boolean>(false);
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768); // Breakpoint for mobile
+    const checkMobile = (): void => {
+      setIsMobile(window.innerWidth < 768);
     };
 
     checkMobile();
@@ -33,7 +66,12 @@ const useIsMobile = () => {
 };
 
 // Recursive component to render menu items
-const MenuItems = ({ items, pendingAction, onMenuItemClick, isMobile }) => {
+const MenuItems: React.FC<MenuItemsProps> = ({ 
+  items, 
+  pendingAction, 
+  onMenuItemClick, 
+  isMobile 
+}) => {
   if (!items || items.length === 0) return null;
 
   return items.map((item) => {
@@ -44,14 +82,15 @@ const MenuItems = ({ items, pendingAction, onMenuItemClick, isMobile }) => {
       null;
 
     const suffix = suffixValue ? ` (${suffixValue})` : '';
-    const label = item.label?.[Object.keys(item.label)[0]] || item.label;
+    const label = typeof item.label === 'object' ? 
+      item.label[Object.keys(item.label)[0]] : 
+      item.label;
 
     if (item.children && item.children.length > 0) {
       const visibleChildren = item.children.filter(child => !child.isHidden);
       if (visibleChildren.length === 0) return null;
 
       return isMobile ? (
-        // Mobile view - flat list with indentation
         <React.Fragment key={item.key}>
           <MenuItem
             onClick={() => onMenuItemClick?.(item.key)}
@@ -69,146 +108,4 @@ const MenuItems = ({ items, pendingAction, onMenuItemClick, isMobile }) => {
           </div>
         </React.Fragment>
       ) : (
-        // Desktop view - nested menu
-        <MenuGroup key={item.key}>
-          <MenuItem onClick={() => onMenuItemClick?.(item.key)}>
-            {label}{suffix}
-          </MenuItem>
-          <MenuList>
-            <MenuItems
-              items={visibleChildren}
-              pendingAction={pendingAction}
-              onMenuItemClick={onMenuItemClick}
-              isMobile={isMobile}
-            />
-          </MenuList>
-        </MenuGroup>
-      );
-    }
-
-    return (
-      <MenuItem
-        key={item.key}
-        onClick={() => onMenuItemClick?.(item.key)}
-      >
-        {label}{suffix}
-      </MenuItem>
-    );
-  }).filter(Boolean);
-};
-
-// Mobile Menu Component
-const MobileMenu = ({ menuConfig, pendingAction, onMenuItemClick }) => {
-  return (
-    <Dialog>
-      <DialogTrigger disableButtonEnhancement>
-        <Button icon={<List24Regular />} />
-      </DialogTrigger>
-      <DialogSurface>
-        <DialogBody>
-          <DialogContent>
-            <MenuItems
-              items={menuConfig.children}
-              pendingAction={pendingAction}
-              onMenuItemClick={(key) => {
-                onMenuItemClick?.(key);
-              }}
-              isMobile={true}
-            />
-          </DialogContent>
-        </DialogBody>
-      </DialogSurface>
-    </Dialog>
-  );
-};
-
-// Desktop Menu Component
-const DesktopMenu = ({ menuConfig, pendingAction, onMenuItemClick }) => {
-  const buttonSuffixValue = menuConfig.suffix ? 
-    new Function('pendingAction', `return ${menuConfig.suffix}`)(pendingAction) : 
-    null;
-  const buttonSuffix = buttonSuffixValue ? ` (${buttonSuffixValue})` : '';
-
-  return (
-    <Menu>
-      <MenuTrigger>
-        <Button>
-          {menuConfig.label?.[Object.keys(menuConfig.label)[0]] || menuConfig.label}
-          {buttonSuffix}
-        </Button>
-      </MenuTrigger>
-      <MenuPopover>
-        <MenuList>
-          <MenuItems
-            items={menuConfig.children}
-            pendingAction={pendingAction}
-            onMenuItemClick={onMenuItemClick}
-            isMobile={false}
-          />
-        </MenuList>
-      </MenuPopover>
-    </Menu>
-  );
-};
-
-const ResponsiveActionsMenu = ({ menuConfig, pendingAction, onMenuItemClick }) => {
-  const isMobile = useIsMobile();
-
-  if (menuConfig.isHidden) return null;
-
-  return isMobile ? (
-    <MobileMenu
-      menuConfig={menuConfig}
-      pendingAction={pendingAction}
-      onMenuItemClick={onMenuItemClick}
-    />
-  ) : (
-    <DesktopMenu
-      menuConfig={menuConfig}
-      pendingAction={pendingAction}
-      onMenuItemClick={onMenuItemClick}
-    />
-  );
-};
-
-export default ResponsiveActionsMenu;
-
-// Usage example:
-/*
-const menuConfig = {
-  label: { MenuLabels: ["MenuKey.Action_Required"] },
-  key: "MenuKey.Action_Required",
-  icon: "<SetActionIcon />",
-  isExpanded: true,
-  suffix: "pendingAction?.actionRequiredPendingCount",
-  children: [
-    {
-      label: { MenuLabels: ["MenuKey.Guest_Access_Review"] },
-      key: "MenuKey.Guest_Access_Review",
-      isHidden: true,
-      suffix: "pendingAction?.guestAccessReviewPendingCount",
-    },
-    {
-      key: "MenuKey.Attestation_Paneling_No_Use",
-      label: { MenuLabels: ["MenuKey.Attestation_Paneling_No_Use"] },
-      children: [
-        {
-          label: { MenuLabels: ["MenuKey.Attestation_Paneing"] },
-          key: "MenuKey.Attestation_Paneing",
-          suffix: "pendingAction?.certificationPendingCount",
-        },
-        {
-          label: { MenuLabels: ["MenuKey.Power_Platform_Attestation_Pending"] },
-          key: "MenuKey.Power_Platform_Attestation_Pending",
-        }
-      ]
-    }
-  ]
-};
-
-<ResponsiveActionsMenu 
-  menuConfig={menuConfig}
-  pendingAction={pendingAction}
-  onMenuItemClick={(key) => console.log('Selected:', key)}
-/>
-*/
+        <MenuGroup key={item
