@@ -108,4 +108,173 @@ const MenuItems: React.FC<MenuItemsProps> = ({
           </div>
         </React.Fragment>
       ) : (
-        <MenuGroup key={item
+        <MenuGroup key={item.key}>
+          <MenuItem onClick={() => onMenuItemClick?.(item.key)}>
+            {label}{suffix}
+          </MenuItem>
+          <MenuList>
+            <MenuItems
+              items={visibleChildren}
+              pendingAction={pendingAction}
+              onMenuItemClick={onMenuItemClick}
+              isMobile={isMobile}
+            />
+          </MenuList>
+        </MenuGroup>
+      );
+    }
+
+    return (
+      <MenuItem
+        key={item.key}
+        onClick={() => onMenuItemClick?.(item.key)}
+      >
+        {label}{suffix}
+      </MenuItem>
+    );
+  }).filter(Boolean);
+};
+
+// Mobile Menu Component
+const MobileMenu: React.FC<MenuProps> = ({ 
+  menuConfig, 
+  pendingAction, 
+  onMenuItemClick 
+}) => {
+  return (
+    <Dialog>
+      <DialogTrigger disableButtonEnhancement>
+        <Button icon={<List24Regular />} />
+      </DialogTrigger>
+      <DialogSurface>
+        <DialogBody>
+          <DialogContent>
+            <MenuItems
+              items={menuConfig.children || []}
+              pendingAction={pendingAction}
+              onMenuItemClick={onMenuItemClick}
+              isMobile={true}
+            />
+          </DialogContent>
+        </DialogBody>
+      </DialogSurface>
+    </Dialog>
+  );
+};
+
+// Desktop Menu Component
+const DesktopMenu: React.FC<MenuProps> = ({ 
+  menuConfig, 
+  pendingAction, 
+  onMenuItemClick 
+}) => {
+  const buttonSuffixValue = menuConfig.suffix ? 
+    new Function('pendingAction', `return ${menuConfig.suffix}`)(pendingAction) : 
+    null;
+  const buttonSuffix = buttonSuffixValue ? ` (${buttonSuffixValue})` : '';
+
+  const label = typeof menuConfig.label === 'object' ? 
+    menuConfig.label[Object.keys(menuConfig.label)[0]] : 
+    menuConfig.label;
+
+  return (
+    <Menu>
+      <MenuTrigger>
+        <Button>
+          {label}{buttonSuffix}
+        </Button>
+      </MenuTrigger>
+      <MenuPopover>
+        <MenuList>
+          <MenuItems
+            items={menuConfig.children || []}
+            pendingAction={pendingAction}
+            onMenuItemClick={onMenuItemClick}
+            isMobile={false}
+          />
+        </MenuList>
+      </MenuPopover>
+    </Menu>
+  );
+};
+
+const ResponsiveActionsMenu: React.FC<MenuProps> = ({ 
+  menuConfig, 
+  pendingAction, 
+  onMenuItemClick 
+}) => {
+  const isMobile = useIsMobile();
+
+  if (menuConfig.isHidden) return null;
+
+  return isMobile ? (
+    <MobileMenu
+      menuConfig={menuConfig}
+      pendingAction={pendingAction}
+      onMenuItemClick={onMenuItemClick}
+    />
+  ) : (
+    <DesktopMenu
+      menuConfig={menuConfig}
+      pendingAction={pendingAction}
+      onMenuItemClick={onMenuItemClick}
+    />
+  );
+};
+
+export default ResponsiveActionsMenu;
+
+// Type declarations for usage
+type MenuKey = {
+  Action_Required: string;
+  Guest_Access_Review: string;
+  Attestation_Paneling_No_Use: string;
+  Attestation_Paneing: string;
+  Power_Platform_Attestation_Pending: string;
+};
+
+// Usage example:
+/*
+const menuConfig: MenuItemConfig = {
+  label: { MenuLabels: ["MenuKey.Action_Required"] },
+  key: "MenuKey.Action_Required",
+  icon: "<SetActionIcon />",
+  isExpanded: true,
+  suffix: "pendingAction?.actionRequiredPendingCount",
+  children: [
+    {
+      label: { MenuLabels: ["MenuKey.Guest_Access_Review"] },
+      key: "MenuKey.Guest_Access_Review",
+      isHidden: true,
+      suffix: "pendingAction?.guestAccessReviewPendingCount",
+    },
+    {
+      key: "MenuKey.Attestation_Paneling_No_Use",
+      label: { MenuLabels: ["MenuKey.Attestation_Paneling_No_Use"] },
+      children: [
+        {
+          label: { MenuLabels: ["MenuKey.Attestation_Paneing"] },
+          key: "MenuKey.Attestation_Paneing",
+          suffix: "pendingAction?.certificationPendingCount",
+        },
+        {
+          label: { MenuLabels: ["MenuKey.Power_Platform_Attestation_Pending"] },
+          key: "MenuKey.Power_Platform_Attestation_Pending",
+        }
+      ]
+    }
+  ]
+};
+
+const pendingAction: PendingAction = {
+  actionRequiredPendingCount: 5,
+  guestAccessReviewPendingCount: 2,
+  certificationPendingCount: 3
+};
+
+<ResponsiveActionsMenu 
+  menuConfig={menuConfig}
+  pendingAction={pendingAction}
+  onMenuItemClick={(key: string) => console.log('Selected:', key)}
+/>
+*/
