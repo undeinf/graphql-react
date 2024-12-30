@@ -93,24 +93,3 @@ mutation{
   }
 }
 
-
-
-
-Subject: Work From Home Request Due to Medical Condition
-
-Dear [HR Representative's Name],
-
-I hope this email finds you well. I am writing to inform you that I met with an accident on December 2nd and unfortunately sustained a fracture in my left wrist. As a result, I currently have a plaster cast on my hand and have been advised by my doctor to avoid movements involving the affected arm.
-
-I will continue working from home until the end of January or February 7th, depending on the progress of my recovery. The plaster is expected to be removed around January 7th, provided my arm shows satisfactory improvement. After that, I will need to undergo physiotherapy and exercises for about a month to regain strength and mobility.
-
-I assure you that I will manage my responsibilities effectively during this period and will keep you updated on any changes to my recovery timeline. Please let me know if you require any additional information or documentation from my end.
-
-Thank you for your understanding and support.
-
-Best regards,
-[Your Full Name]
-[Your Job Title]
-[Your Contact Information]
-
-CC: [Manager 1’s Name], [Manager 2’s Name]
