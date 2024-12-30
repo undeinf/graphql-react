@@ -93,3 +93,273 @@ mutation{
   }
 }
 
+
+---
+
+// Types.ts
+export interface MeetingRoomType {
+  ID: string;
+  MeetingCount: number;
+  DisplayName: string;
+  EmailAddress: string;
+  Records: number;
+}
+
+export interface MeetingRoomDetailPayload {
+  MeetingId: string;
+  startDate: string;
+  endDate: string;
+}
+
+// Optimized date-related interfaces
+export interface DateTimeInfo {
+  dateTime: string;
+  timeZone: string;
+}
+
+export interface EmailAddress {
+  name: string;
+  address: string;
+}
+
+export interface MeetingRoomGridRecordType {
+  start: DateTimeInfo;
+  end: DateTimeInfo;
+  organizer: {
+    emailAddress: EmailAddress;
+  };
+}
+
+// Constants
+export const ITEMS_PER_PAGE = 10;
+export const DATE_FORMAT = 'DD/MM/YYYY hh:mm A';
+
+// Context.tsx
+import React, { createContext, useContext, useMemo, useCallback } from 'react';
+
+interface MeetingRoomContextType {
+  meetingInfo: MeetingRoomType | null;
+  setMeetingInfo: (value: MeetingRoomType) => void;
+  meetingRooms: MeetingRoomType[];
+  meetingDetailParam: MeetingRoomDetailPayload | null;
+  setMeetingDetailParam: (param: MeetingRoomDetailPayload) => void;
+  searchString: string;
+}
+
+const MeetingRoomContext = createContext<MeetingRoomContextType>({
+  meetingInfo: null,
+  setMeetingInfo: () => undefined,
+  meetingRooms: [],
+  meetingDetailParam: null,
+  setMeetingDetailParam: () => undefined,
+  searchString: '',
+});
+
+// Custom hooks for context
+export const useMeetingRoomCtx = () => useContext(MeetingRoomContext);
+
+// MeetingRoomList.tsx
+import React, { memo, useCallback } from 'react';
+import { List, Input } from '@/components/ui/list';
+
+interface MeetingRoomListProps {
+  onPageChange: (pageNo: number) => void;
+  onSearch: (value: string) => void;
+}
+
+export const MeetingRoomList = memo(({ onPageChange, onSearch }: MeetingRoomListProps) => {
+  const { meetingRooms, setMeetingInfo } = useMeetingRoomCtx();
+  
+  const data = useMemo(() => 
+    meetingRooms.map((meeting, index) => ({
+      index,
+      key: meeting.ID,
+      content: <div><strong>{meeting.DisplayName}</strong></div>,
+      endMedia: <ArrowRightIcon />,
+      contentMedia: <PageRightIcon />
+    })), [meetingRooms]);
+
+  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    onSearch(e.target.value);
+  }, [onSearch]);
+
+  return (
+    <div className="meeting-room-list">
+      <Flex className="p-5">
+        <Input
+          icon={<SearchIcon />}
+          clearable
+          placeholder="Search..."
+          fluid
+          onChange={handleSearchChange}
+        />
+      </Flex>
+      {data.length > 0 ? (
+        <List
+          selectable
+          items={data}
+          onSelectedIndexChange={useCallback(({ selectedIndex }) => {
+            setMeetingInfo(meetingRooms[selectedIndex]);
+          }, [meetingRooms, setMeetingInfo])}
+        />
+      ) : (
+        <span>No records found</span>
+      )}
+    </div>
+  );
+});
+
+MeetingRoomList.displayName = 'MeetingRoomList';
+
+// MeetingRoomForm.tsx
+import React, { memo, useCallback } from 'react';
+import moment from 'moment';
+
+export const MeetingRoomForm = memo(() => {
+  const { meetingInfo, selectedDate, setSelectedDate } = useMeetingRoomCtx();
+  
+  const handleDateChange = useCallback((value: { startDateOnly: string, endDateOnly: string }) => {
+    if (value?.startDateOnly && value?.endDateOnly) {
+      setSelectedDate({
+        startDate: value.startDateOnly,
+        endDate: value.endDateOnly
+      });
+    }
+  }, [setSelectedDate]);
+
+  const startDate = useMemo(() => 
+    new Date(new Date().setDate(new Date().getDate())), 
+    []
+  );
+
+  return (
+    <div className="meeting-room-form-container">
+      <div className="meeting-room-info-form meeting-room-panel">
+        <div className="meeting-room-form-item">
+          <Text>Display Name</Text>
+          <TextField value={meetingInfo?.DisplayName || ""} />
+        </div>
+        <div className="meeting-room-form-item">
+          <Text>Primary SMTP Address</Text>
+          <TextField value={meetingInfo?.EmailAddress || ""} />
+        </div>
+      </div>
+
+      <Divider className="pr-10" />
+
+      <div className="meeting-room-action-form meeting-room-panel">
+        <RangeSelectorComponent
+          isToggleable={false}
+          startDateValue={startDate}
+          allowFutureDateSelection={true}
+          isDisabled={selectedDateType === MeetingRoomCheckBoxItem.Today}
+          onValueChange={handleDateChange}
+        />
+      </div>
+    </div>
+  );
+});
+
+MeetingRoomForm.displayName = 'MeetingRoomForm';
+
+// MeetingRoomTableComponent.tsx
+import React, { memo, useCallback } from 'react';
+import { Table } from '@/components/ui/table';
+
+export const MeetingRoomTableComponent = memo(() => {
+  const { list, meetingDetailParam } = useMeetingRoomCtx();
+
+  const rowData = useMemo(() => list.map((item, index) => ({
+    key: index,
+    items: [
+      item?.start?.dateTime ? moment(item.start.dateTime).format(DATE_FORMAT) : "",
+      item?.end?.dateTime ? moment(item.end.dateTime).format(DATE_FORMAT) : "",
+      item?.organizer?.emailAddress?.name || ""
+    ]
+  })), [list]);
+
+  const header = {
+    key: 'header',
+    items: [
+      { content: <strong>Start Date</strong>, key: 'startDate' },
+      { content: <strong>End Date</strong>, key: 'endDate' },
+      { content: <strong>Organizer</strong>, key: 'organizer' }
+    ]
+  };
+
+  return (
+    <div className="meeting-room-panel">
+      {progress && <div className="meeting-room-table-spinner"><Spinner size={2} /></div>}
+      <Table 
+        compact 
+        header={header} 
+        rows={rowData} 
+        aria-label="Meeting room table"
+      />
+      {!list.length && <div>No records found</div>}
+    </div>
+  );
+});
+
+MeetingRoomTableComponent.displayName = 'MeetingRoomTableComponent';
+
+// Layout.tsx
+export const MeetingRoomLayout = memo(({ SearchQuery = "" }) => {
+  const [searchText, setSearchText] = useState("");
+  const [pageNumber, setPageNumber] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [totalPages, setTotalPages] = useState(0);
+
+  const loadService = useCallback(async (url: string, isSearchStringCall = false) => {
+    setLoading(true);
+    try {
+      const res = await getMeetingRooms(url);
+      if (res.status === 200) {
+        const meetings = (res.data || []).map((item: any) => ({
+          ...item,
+        }));
+        setMeetingRooms(meetings);
+        setTotalPages(Math.round(meetings.length > 0 ? meetings[0].MeetingCount / ITEMS_PER_PAGE : 0));
+        if (isSearchStringCall) setPageNumber(1);
+      }
+    } catch (err) {
+      console.error("Error loading meeting rooms:", err);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    setSearchText(SearchQuery);
+  }, [SearchQuery]);
+
+  return (
+    <div>
+      <MeetingRoomHeaderComponent />
+      <div className="meeting-room-container">
+        <MeetingRoomProvider meetingRooms={meetingRooms} searchString={searchText}>
+          <div className="meeting-room-left-pane meeting-room-panel">
+            <MeetingRoomList
+              onPageChange={handlePageChange}
+              onSearch={handleSearch}
+            />
+            {loading && totalPages > 0 && (
+              <div className="meeting-room-list-pagination">
+                <Pagination
+                  currentPage={pageNumber}
+                  totalPages={totalPages}
+                  onPageChange={handlePageChange}
+                />
+              </div>
+            )}
+          </div>
+          <div className="meeting-room-right-pane">
+            <MeetingRoomInfoComponent />
+          </div>
+        </MeetingRoomProvider>
+      </div>
+    </div>
+  );
+});
+
+MeetingRoomLayout.displayName = 'MeetingRoomLayout';
