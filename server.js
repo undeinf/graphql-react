@@ -37,3 +37,31 @@ Best regards,
 [Your Full Name]
 [Your Position]
 [Your Contact Information]
+
+
+Agenda Items:
+Introduction and Purpose (5 minutes)
+
+Overview of the M35 app's mobile testing requirements.
+Highlight the importance of testing on hard devices to ensure real-world performance validation.
+Timeline for Mobile Testing (10 minutes)
+
+Determine a start date for the testing phase.
+Discuss milestones and deadlines to maintain project momentum.
+Device Availability and Dependencies (10 minutes)
+
+Address the lack of in-house devices for testing.
+Identify individuals or resources with access to suitable testing devices.
+Explore potential options for securing devices if needed.
+Impact of Third-Party Testing (10 minutes)
+
+Discuss the risks of relying on third-party individuals for testing and sharing results.
+Assess how this dependency could impact the overall testing duration.
+Action Plan and Next Steps (10 minutes)
+
+Establish responsibilities and roles for mobile testing.
+Outline the next steps to begin the testing process.
+Q&A and Feedback (5 minutes)
+
+Open floor for questions, suggestions, and additional concerns.
+
