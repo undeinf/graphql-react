@@ -1,2 +1,73 @@
-node_modules
+# Ignore node_modules
+node_modules/
+dist/
+build/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+/.pnp
+.pnp.js
+
+# Nx specific
+/tmp/
+/.cache/
+.out/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDEs and editors
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+.nfs*
+
+# Coverage directory
+coverage/
+*.lcov
+
+# Optional npm cache directory
+.npm/
+
+# Debugging
+debug/
+*.stackdump
+
+# NX report outputs
+report.html
+
+# Next.js (if used)
+.next/
+
+# Generated files
+yarn.lock
 package-lock.json
+
+# Storybook files (if used)
+storybook-static/
+
+# Turborepo cache (if used)
+.turbo/
