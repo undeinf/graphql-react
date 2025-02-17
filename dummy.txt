@@ -1,3 +1,85 @@
+To increase the test count, you can expand each test case by considering different test scenarios, edge cases, environments, and user interactions. Here’s how you can expand each:
+
+Status message not visible upon load (CPW-01)
+
+Verify status message on different screen resolutions.
+Check message visibility in dark and light themes.
+Validate message appearance after refreshing the page.
+Test message display with different user roles.
+Check behavior when an error occurs vs. a success message.
+Labels aren't bold in UI (CPW-02)
+
+Check label visibility on different browsers.
+Verify label consistency across mobile and desktop.
+Validate labels in different themes or contrast modes.
+Check if label styling persists after a refresh.
+Verify labels when screen zoom is increased (e.g., 125%, 150%).
+Copilot icon missing in popup (CPW-03)
+
+Test across different screen resolutions.
+Check if the icon appears on different browsers.
+Verify if the icon loads with slow internet connections.
+Test if any UI interaction (hover, click) affects the icon.
+Validate icon visibility with different user permissions.
+OnLoad service call works in both environments (CPW-04)
+
+Test on multiple mobile devices and browsers.
+Validate API response times in mobile vs. web.
+Verify service behavior when offline or with poor connectivity.
+Check if different user roles receive different responses.
+Confirm logging and error handling for failed service calls.
+Change the validation message position (CPW-05)
+
+Verify placement in different screen sizes.
+Check if the message disappears properly after correction.
+Test with multiple validation errors at once.
+Validate message placement in landscape mode.
+Ensure message placement doesn’t break UI elements.
+Division hardcoded and sorted (CPW-06)
+
+Check division sorting for different datasets.
+Test with a large number of entries (performance testing).
+Verify sorting order (ascending, descending).
+Check behavior when sorting is disabled.
+Test sorting with duplicate values.
+On successful submit, disable fields and button (CPW-07)
+
+Verify that fields remain disabled until a new action is triggered.
+Check if disabled fields remain visually distinct.
+Ensure button remains inactive even after page refresh.
+Validate form behavior on slow network conditions.
+Test if any keyboard shortcuts override the disabled state.
+On submit progress, disable fields (CPW-08)
+
+Check UI behavior when submitting multiple times quickly.
+Verify if the UI gets stuck in disabled mode under load.
+Test behavior when submission fails.
+Ensure fields are enabled again after a failed attempt.
+Validate the progress indicator visibility.
+Remove "completed" from the top message upon save (CPW-09)
+
+Verify message removal after different save scenarios.
+Test if the message reappears after multiple saves.
+Ensure message updates correctly in real-time.
+Check if removing the message affects accessibility.
+Validate behavior on different browsers.
+Module parent main content is the same and verified (CPW-10)
+
+Check content consistency across different user roles.
+Validate content updates dynamically upon changes.
+Compare content in different browser sessions.
+Test behavior when switching between modules.
+Verify content integrity in different screen sizes.
+Save and validation working correctly (CPW-11)
+
+Check save functionality for different form inputs.
+Validate behavior with missing or invalid fields.
+Test with large data inputs.
+Ensure saved data persists after a refresh.
+Validate error messages for failed saves.
+
+
+
 import React, { useState, useEffect } from 'react';
 import {
   Menu,
