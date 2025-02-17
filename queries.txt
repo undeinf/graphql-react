@@ -106,6 +106,24 @@ Notification Missing Upon Save/Update
 
 Check if a confirmation notification is displayed when saving or updating settings.
 
+Section: Service-Related Tests
+
+OneDrive App on Load - Fetch Service and Show Data
+
+Verify that when the OneDrive app loads, it fetches data from the service and correctly displays it.
+
+Enable/Disable External Sharing Based on Service Data
+
+Ensure that the External Sharing toggle reflects the data fetched from the service.
+
+Update Settings and Verify Data Save
+
+When the user changes their settings and clicks 'Update,' verify that the data is saved correctly.
+
+Show Notification Upon Saving Data
+
+Ensure that a confirmation notification appears after successfully saving settings.
+
 
 //first query with hardcoded data
 //^(?!\s*$)([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})(;[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})*$
