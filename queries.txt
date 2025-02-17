@@ -1,3 +1,112 @@
+Section: External Sharing Functionality
+
+Verify Default State of External Sharing Toggle
+
+Navigate to the OneDrive Management page and check if the External Sharing toggle is disabled by default.
+
+Enable External Sharing and Validate Terms of Use Certification Popup
+
+Click the toggle button to enable External Sharing and verify that the Terms of Use popup appears.
+
+Accept Terms of Use and Successfully Enable External Sharing
+
+Check if enabling External Sharing after accepting Terms of Use and providing a Business Justification is successful.
+
+Attempt to Proceed Without Accepting Terms of Use
+
+Try clicking 'Proceed' without selecting any checkboxes and verify that the button remains disabled.
+
+Attempt to Proceed Without Business Justification
+
+Verify that the system does not allow proceeding without filling the Business Justification field.
+
+Disable External Sharing
+
+Turn off the External Sharing toggle and confirm that it disables without showing Terms of Use popup.
+
+Verify Default Expiration Period
+
+Check if the default expiration period for external share links is set to 30 days.
+
+Change Expiration Period to 90 Days
+
+Modify the default expiration period to 90 days and check if the update is saved successfully.
+
+Section: OneDrive Assisted Cleanup
+
+Verify Assisted Cleanup Default Date
+
+Click on 'OneDrive Assisted Cleanup' and confirm that the default cleanup date is set to 3 years prior.
+
+Select a Different Cleanup Date and Proceed
+
+Choose a different past date, click 'Proceed,' and validate that search results open in Edge.
+
+Attempt to Proceed Without Selecting a Date
+
+Clear the selected date and check if the 'Proceed' button remains disabled.
+
+Verify Download and Delete Options in Search Results
+
+After Assisted Cleanup search results are displayed, verify that users can download or delete files.
+
+Section: Mobile Readiness Testing
+
+Verify Responsive Layout on Different Screen Sizes
+
+Test the site’s responsiveness on various screen sizes, including mobile, tablet, and desktop.
+
+Test External Sharing Toggle on Mobile
+
+Ensure the toggle button is fully functional and the Terms of Use popup displays correctly on mobile devices.
+
+Validate Assisted Cleanup on Mobile
+
+Check if the Assisted Cleanup feature works smoothly on mobile screens without layout issues.
+
+Verify Touchscreen Usability
+
+Ensure all interactive elements, including buttons and toggles, are easy to use on touch screens.
+
+Section: UI and Usability Improvements
+
+Color of Progress Bar
+
+Verify that the progress bar displays the correct color based on usage percentage.
+
+Change GB to TB
+
+Ensure that storage units are correctly displayed in TB instead of GB where applicable.
+
+Instruction UI Fix
+
+Check if instructions are clear, correctly formatted, and visible.
+
+OneDrive Assistance Cleanup UI Fix
+
+Validate that the Assisted Cleanup UI is properly aligned and all buttons are functional.
+
+OneDrive for Business External Sharing - Terms of Use and User Certification POP UI
+
+Ensure the Terms of Use popup appears properly, is readable, and functions correctly.
+
+Detail Hyperlink is Missing
+
+Verify that all hyperlinks, including 'More details,' are present and functional.
+
+Fix Review UI & Links
+
+Ensure that all review UI components and links work correctly.
+
+Update and Refresh is Working
+
+Test if page updates and refresh functionality work without data loss or lag.
+
+Notification Missing Upon Save/Update
+
+Check if a confirmation notification is displayed when saving or updating settings.
+
+
 //first query with hardcoded data
 //^(?!\s*$)([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})(;[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})*$
 
