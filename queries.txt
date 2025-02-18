@@ -1,112 +1,188 @@
-Navigation & Access
+Functional Test Cases
+General Information Validation
+Verify that all mandatory fields (marked with *) are displayed correctly
 
-Verify complete navigation path: Inventory -> M365 Group -> Public
+Confirm the Title field shows "My Guest Team Testing-[External]" correctly
 
-Test breadcrumb functionality and accuracy
+Validate the URL link https://share.novartis.net/sites/MyGuestTeamTesting is accurate
 
-Tab Navigation & Content Loading
+Verify "Private group | M365 Business Use Only (External)" label is displayed
 
-Verify all tabs (Teams, Engage, Sharepoint, Streams, Planner, Others) are clickable
+Group Classification Tests
+Verify Division field displays "Finance" correctly
 
-Confirm correct count display and data loading for each tab
+Confirm Function shows "DATA, DIGITAL & IT"
 
-Test tab switching performance
+Validate Country displays "Switzerland"
 
-Global Search
+Check Data Type shows "Application Data & Interfaces"
 
-Test search functionality with valid/invalid inputs
+Verify Business Criticality displays "Low"
 
-Verify search results accuracy and response time
+Confirm Data Privacy shows "N/A"
 
-List View Display
+Validate Owners field shows the correct user(s)
 
-Verify list items display with correct information
+External Sharing Settings
+Verify "Enable/Disable External Sharing" option is visible
 
-Test sorting and filtering (if available)
+Confirm "External Sharing for Private Channels" option is present
 
-Verify privacy status display (Private/Public)
+Validate all toggle switches are in correct state for read-only mode
 
-Deep Linking
+Group Settings
+Verify "Enable Public Access" option is visible
 
-Test URL parameters for all services (/public/Teams, /public/Engage, etc.)
+Confirm "Enable and Access in Outlook (OWA)" option is displayed
 
-Verify correct service loading based on URL
+Validate "Searchable in Outlook Address Book (GAL)" option is present
 
-View Details Functionality
+Policy Links Validation
+Verify all policy links are functional:
 
-Test View Details button functionality
+Novartis classification guidelines (go/classify)
 
-Verify detail screen loading and back navigation
+Novartis Global Data Privacy Principles (go/privacyprinciples)
 
-Pagination
+Novartis Legal Hold guidelines (go/legalholdfaqs)
 
-Verify pagination appears with >10 records
+Novartis Global Records Retention Schedule (go/IMF)
 
-Test page navigation (Next, Previous, specific page numbers)
+UI/UX Test Cases
+Verify the breadcrumb navigation (Inventory > Teams) is correct
 
-Verify records per page limit (10 items)
+Confirm the search bar is present and properly aligned
 
-Status Indicators
+Validate the "Delete" and "Edit" buttons are visible at the bottom
 
-Verify "Action Pending" status display
+Check that all fields are non-editable in read-only mode
 
-Test "External Share Disabled" indicator
+Verify proper formatting and alignment of all form elements
 
-Verify other status indicators accuracy
+Permission Test Cases
+Verify only authorized users can view this page
 
-Error Handling
+Confirm edit permissions are restricted appropriately
 
-Test system behavior with network issues
+Validate delete permissions are properly configured
 
-Verify error messages for invalid operations
+Navigation Test Cases
+Verify all tab navigation works (Teams, Engage, Sharepoint, Streams, Planner, Others)
 
-Test recovery scenarios
+Confirm correct count displays on each tab (Teams(28), Engage(6), etc.)
 
+Validate home icon navigation functionality
+
+Non-Functional Test Cases
 Performance
+Verify page load time is within acceptable limits
 
-Verify initial page load time
+Confirm all policy links load efficiently
 
-Test response time for tab switching
+Compatibility
+Test screen display across different browsers
 
-Measure API response times
+Verify responsive design for different screen sizes
 
-Browser Compatibility
+Accessibility
+Verify screen reader compatibility
 
-Test on major browsers (Chrome, Firefox, Edge, Safari)
+Confirm color contrast meets accessibility standards
 
-Verify responsive design on different screen sizes
+Validate keyboard navigation functionality
 
-Security
 
-Verify authentication requirements
 
-Test access permissions
 
-Verify secure API endpoints
 
-Data Consistency
+Group Classification Tests
+Data Validation Tests
+Verify the service endpoint returns all required classification fields
 
-Verify data accuracy across tabs
+Validate that all mandatory fields (marked with *) contain non-null values
 
-Test data persistence during navigation
+Confirm the data format matches the expected schema
 
-Verify count accuracy in tab headers
+Division Field Tests
+Verify Division field accepts and displays dynamic values from service
 
-UI/UX
+Validate the mandatory (*) indicator for Division field
 
-Verify visual elements alignment
+Confirm current value "Finance" matches with service response
 
-Test color contrast and accessibility
+Test handling of Division field updates through service
 
-Verify responsive behavior
+Function Field Tests
+Verify Function field accepts and displays dynamic values from service
 
-Service Integration
+Validate the mandatory (*) indicator for Function field
 
-Test integration between different services
+Confirm current value "DATA, DIGITAL & IT" matches with service response
 
-Verify data synchronization
+Test handling of Function field updates through service
 
-Test cross-service functionality
+Country Field Tests
+Verify Country field accepts and displays dynamic values from service
+
+Validate the mandatory (*) indicator for Country field
+
+Confirm current value "Switzerland" matches with service response
+
+Test handling of Country field updates through service
+
+Data Type Field Tests
+Verify Data Type field accepts and displays dynamic values from service
+
+Validate the mandatory (*) indicator for Data Type field
+
+Confirm current value "Application Data & Interfaces" matches with service response
+
+Test handling of Data Type field updates through service
+
+Business Criticality Tests
+Verify Business Criticality field accepts and displays dynamic values from service
+
+Validate the mandatory (*) indicator for Business Criticality field
+
+Confirm current value "Low" matches with service response
+
+Test handling of Business Criticality field updates through service
+
+Data Privacy Tests
+Verify Data Privacy field accepts and displays dynamic values from service
+
+Validate the mandatory (*) indicator for Data Privacy field
+
+Confirm current value "N/A" matches with service response
+
+Test handling of Data Privacy field updates through service
+
+Error Handling Tests
+Verify appropriate error messages when service fails to fetch data
+
+Test system behavior when service returns incomplete data
+
+Validate error handling for network timeout scenarios
+
+Test system recovery after service disruption
+
+Data Refresh Tests
+Verify data refresh mechanism works correctly
+
+Test auto-refresh functionality if implemented
+
+Validate data consistency after refresh
+
+Test manual refresh triggers
+
+Performance Tests
+Measure response time for classification data loading
+
+Test system behavior under high load conditions
+
+Verify caching mechanisms if implemented
+
+Monitor service call frequency and optimization
 
 
 //first query with hardcoded data
