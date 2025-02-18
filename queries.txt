@@ -1,3 +1,55 @@
+Sharepoint Tab-Specific Test Cases
+Owner Display Tests
+Verify "Owners" field is replaced with two separate fields:
+
+"Primary Owners" field is displayed
+
+"Secondary Owners" field is displayed
+
+Validate that the original "Owners" field is hidden
+
+Confirm both Primary and Secondary owner fields show correct user data
+
+Test that owner information is correctly fetched from the service
+
+Group Settings Visibility Tests
+Verify "Group Settings" section is completely hidden when Sharepoint tab is selected
+
+Confirm the following settings are not visible:
+
+Enable Public Access
+
+Enable and Access in Outlook (OWA)
+
+Searchable in Outlook Address Book (GAL)
+
+Validate that switching back to Teams tab restores Group Settings section
+
+Navigation Tests
+Verify switching between Teams tab (28) and Sharepoint tab (3) correctly toggles the display
+
+Confirm the UI updates immediately when switching tabs
+
+Test that no visual artifacts remain during tab transitions
+
+Data Consistency Tests
+Verify Primary and Secondary owner data is preserved when switching between tabs
+
+Validate that all other fields maintain their values during tab switches
+
+Confirm no data loss occurs during tab navigation
+
+UI Layout Tests
+Verify proper spacing and alignment when Group Settings section is removed
+
+Confirm the page layout adjusts smoothly to accommodate the changes
+
+Test that no empty spaces or visual gaps appear in the interface
+
+
+
+
+
 Functional Test Cases
 General Information Validation
 Verify that all mandatory fields (marked with *) are displayed correctly
