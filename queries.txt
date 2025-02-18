@@ -1,240 +1,348 @@
-Sharepoint Tab-Specific Test Cases
-Owner Display Tests
-Verify "Owners" field is replaced with two separate fields:
+Field Validation Test Cases
+Title Field Tests
+Verify Title field is mandatory and displays error if empty
 
-"Primary Owners" field is displayed
+Test maximum character length restrictions
 
-"Secondary Owners" field is displayed
+Validate special character handling
 
-Validate that the original "Owners" field is hidden
+Test duplicate title validation if applicable
 
-Confirm both Primary and Secondary owner fields show correct user data
+Data Type Field Tests (Multi-select)
+Verify at least one Data Type must be selected
 
-Test that owner information is correctly fetched from the service
+Test multiple selection functionality
 
-Group Settings Visibility Tests
-Verify "Group Settings" section is completely hidden when Sharepoint tab is selected
+Select multiple values
 
-Confirm the following settings are not visible:
+Deselect values
 
-Enable Public Access
+Select all/Deselect all if available
 
-Enable and Access in Outlook (OWA)
+Validate error message when no option is selected
 
-Searchable in Outlook Address Book (GAL)
+Test maximum number of selections allowed
 
-Validate that switching back to Teams tab restores Group Settings section
+Verify selected values are properly displayed
 
-Navigation Tests
-Verify switching between Teams tab (28) and Sharepoint tab (3) correctly toggles the display
+Owners Field Tests
+Verify minimum 2 owners requirement
 
-Confirm the UI updates immediately when switching tabs
+Test error message when adding only 1 owner
 
-Test that no visual artifacts remain during tab transitions
+Validate successful case with 2+ owners
 
-Data Consistency Tests
-Verify Primary and Secondary owner data is preserved when switching between tabs
+Test owner search/selection functionality
 
-Validate that all other fields maintain their values during tab switches
+Test removal of owners
 
-Confirm no data loss occurs during tab navigation
+Prevent removal if it would result in less than 2 owners
 
-UI Layout Tests
-Verify proper spacing and alignment when Group Settings section is removed
+Verify duplicate owner prevention
 
-Confirm the page layout adjusts smoothly to accommodate the changes
+Test owner field validation messages
 
-Test that no empty spaces or visual gaps appear in the interface
+Enable Public Access Toggle Tests
+Test popup appearance when toggle is enabled
 
+Verify all checkboxes in popup are mandatory
 
+Test submission with missing checkboxes
 
+Verify error messages
 
+Test justification field in popup
 
-Functional Test Cases
-General Information Validation
-Verify that all mandatory fields (marked with *) are displayed correctly
+Verify it's mandatory
 
-Confirm the Title field shows "My Guest Team Testing-[External]" correctly
+Test character limits
 
-Validate the URL link https://share.novartis.net/sites/MyGuestTeamTesting is accurate
+Test empty submission
 
-Verify "Private group | M365 Business Use Only (External)" label is displayed
+Verify popup can be cancelled
 
-Group Classification Tests
-Verify Division field displays "Finance" correctly
+Test successful submission with all requirements met
 
-Confirm Function shows "DATA, DIGITAL & IT"
+External Sharing Tests
+Test Enable/Disable External Sharing toggle
 
-Validate Country displays "Switzerland"
+Domain Input Validation:
 
-Check Data Type shows "Application Data & Interfaces"
+Test single domain input
 
-Verify Business Criticality displays "Low"
+Test multiple domain inputs
 
-Confirm Data Privacy shows "N/A"
+Verify domain format validation (e.g., example.com)
 
-Validate Owners field shows the correct user(s)
+Test invalid domain formats
 
-External Sharing Settings
-Verify "Enable/Disable External Sharing" option is visible
+Test duplicate domain prevention
 
-Confirm "External Sharing for Private Channels" option is present
+Verify domain removal functionality
 
-Validate all toggle switches are in correct state for read-only mode
+Test maximum number of allowed domains
 
-Group Settings
-Verify "Enable Public Access" option is visible
+Validate error messages for invalid domains
 
-Confirm "Enable and Access in Outlook (OWA)" option is displayed
+Dropdown Field Tests (Division, Function, Country, etc.)
+Verify all dropdown fields are mandatory
 
-Validate "Searchable in Outlook Address Book (GAL)" option is present
+Test error messages when no selection is made
 
-Policy Links Validation
-Verify all policy links are functional:
+For each dropdown:
 
-Novartis classification guidelines (go/classify)
+Test single selection functionality
 
-Novartis Global Data Privacy Principles (go/privacyprinciples)
+Verify selected value is properly displayed
 
-Novartis Legal Hold guidelines (go/legalholdfaqs)
+Test search functionality if available
 
-Novartis Global Records Retention Schedule (go/IMF)
-
-UI/UX Test Cases
-Verify the breadcrumb navigation (Inventory > Teams) is correct
-
-Confirm the search bar is present and properly aligned
-
-Validate the "Delete" and "Edit" buttons are visible at the bottom
-
-Check that all fields are non-editable in read-only mode
-
-Verify proper formatting and alignment of all form elements
-
-Permission Test Cases
-Verify only authorized users can view this page
-
-Confirm edit permissions are restricted appropriately
-
-Validate delete permissions are properly configured
-
-Navigation Test Cases
-Verify all tab navigation works (Teams, Engage, Sharepoint, Streams, Planner, Others)
-
-Confirm correct count displays on each tab (Teams(28), Engage(6), etc.)
-
-Validate home icon navigation functionality
-
-Non-Functional Test Cases
-Performance
-Verify page load time is within acceptable limits
-
-Confirm all policy links load efficiently
-
-Compatibility
-Test screen display across different browsers
-
-Verify responsive design for different screen sizes
-
-Accessibility
-Verify screen reader compatibility
-
-Confirm color contrast meets accessibility standards
-
-Validate keyboard navigation functionality
-
-
-
-
-
-Group Classification Tests
-Data Validation Tests
-Verify the service endpoint returns all required classification fields
-
-Validate that all mandatory fields (marked with *) contain non-null values
-
-Confirm the data format matches the expected schema
-
-Division Field Tests
-Verify Division field accepts and displays dynamic values from service
-
-Validate the mandatory (*) indicator for Division field
-
-Confirm current value "Finance" matches with service response
-
-Test handling of Division field updates through service
-
-Function Field Tests
-Verify Function field accepts and displays dynamic values from service
-
-Validate the mandatory (*) indicator for Function field
-
-Confirm current value "DATA, DIGITAL & IT" matches with service response
-
-Test handling of Function field updates through service
-
-Country Field Tests
-Verify Country field accepts and displays dynamic values from service
-
-Validate the mandatory (*) indicator for Country field
-
-Confirm current value "Switzerland" matches with service response
-
-Test handling of Country field updates through service
-
-Data Type Field Tests
-Verify Data Type field accepts and displays dynamic values from service
-
-Validate the mandatory (*) indicator for Data Type field
-
-Confirm current value "Application Data & Interfaces" matches with service response
-
-Test handling of Data Type field updates through service
+Verify dropdown list is complete and accurate
 
 Business Criticality Tests
-Verify Business Criticality field accepts and displays dynamic values from service
+Verify selection is mandatory
 
-Validate the mandatory (*) indicator for Business Criticality field
+Test different criticality level selections
 
-Confirm current value "Low" matches with service response
-
-Test handling of Business Criticality field updates through service
+Validate impact on other fields based on selection
 
 Data Privacy Tests
-Verify Data Privacy field accepts and displays dynamic values from service
+Verify selection is mandatory
 
-Validate the mandatory (*) indicator for Data Privacy field
+Test different privacy level selections
 
-Confirm current value "N/A" matches with service response
+Validate related field dependencies
 
-Test handling of Data Privacy field updates through service
+Integration Test Cases
+Save Operation Tests
+Verify all mandatory fields must be filled before save
+
+Test save operation with minimum required fields
+
+Test save operation with all fields filled
+
+Verify proper error handling for invalid combinations
+
+Test save operation with maximum allowed values
+
+Cancel Operation Tests
+Verify changes are discarded on cancel
+
+Test cancel confirmation dialog if implemented
+
+Verify return to previous state
 
 Error Handling Tests
-Verify appropriate error messages when service fails to fetch data
+Test field-level error messages
 
-Test system behavior when service returns incomplete data
+Verify form-level error messages
 
-Validate error handling for network timeout scenarios
+Test error message clarity and accuracy
 
-Test system recovery after service disruption
+Verify error state styling
 
-Data Refresh Tests
-Verify data refresh mechanism works correctly
-
-Test auto-refresh functionality if implemented
-
-Validate data consistency after refresh
-
-Test manual refresh triggers
+Test error recovery paths
 
 Performance Tests
-Measure response time for classification data loading
+Test response time for field validations
 
-Test system behavior under high load conditions
+Verify dropdown load times
 
-Verify caching mechanisms if implemented
+Test multi-select performance with maximum selections
 
-Monitor service call frequency and optimization
+Verify domain validation response time
+
+
+Service Integration Tests
+Initial Page Load Tests
+Verify service call with correct ID and group type parameters
+
+Test URL format: /inventory/teams/{id}?groupType={type}
+
+Validate correct parsing of URL parameters
+
+Test response handling for different group types:
+
+Teams (28)
+
+Engage (6)
+
+Sharepoint (3)
+
+Streams (1)
+
+Planner (2)
+
+Others (20)
+
+Verify error handling for invalid ID/group type combinations
+
+Deep Linking Tests
+Test direct URL access scenarios:
+
+Valid ID and group type
+
+Invalid ID with valid group type
+
+Valid ID with invalid group type
+
+Missing parameters
+
+Verify URL parameter encoding/decoding
+
+Test browser history navigation
+
+Back button functionality
+
+Forward button functionality
+
+Verify URL sharing functionality
+
+Test bookmark accessibility
+
+Data Loading Tests
+Verify loading state indicators
+
+Test service timeout scenarios
+
+Validate error state handling:
+
+404 Not Found
+
+403 Forbidden
+
+500 Server Error
+
+Test data refresh on URL parameter change
+
+Service Response Validation
+Verify all required fields are present in service response:
+
+Title
+
+URL
+
+Division
+
+Function
+
+Country
+
+Data Type
+
+Business Criticality
+
+Data Privacy
+
+Owners list
+
+Test handling of partial data responses
+
+Validate data type conversions
+
+Test response caching if implemented
+
+State Management Tests
+Verify state persistence during tab navigation
+
+Test state recovery after browser refresh
+
+Validate form state management with URL parameters
+
+Test concurrent request handling
+
+Performance Tests
+Measure initial page load time
+
+Test response time for different group types
+
+Verify service call optimization
+
+Test caching effectiveness
+
+Monitor network payload size
+
+Security Tests
+Verify authentication requirements for deep links
+
+Test authorization for different user roles
+
+Validate URL parameter sanitization
+
+Test cross-site scripting prevention
+
+Verify secure service communication
+
+Browser Compatibility Tests
+Test deep linking across different browsers
+
+Verify URL handling in mobile browsers
+
+Test service integration across browsers
+
+Validate responsive behavior with URL parameters
+
+Save Operation Tests
+Verify successful form submission with all valid fields:
+
+All mandatory fields filled
+
+Data Type selections made
+
+Minimum 2 owners added
+
+All required checkboxes selected (if applicable)
+
+Valid domain entries (if external sharing enabled)
+
+Page Reload Validation
+Verify page automatically reloads after successful save
+
+Confirm all fields switch to read-only mode after reload
+
+Validate displayed data matches the recently saved values:
+
+Title shows "My Guest Team Testing-[External]"
+
+Division shows "Finance"
+
+Function shows "DATA, DIGITAL & IT"
+
+Country shows "Switzerland"
+
+Data Type shows "Application Data & Interfaces"
+
+Business Criticality shows "Low"
+
+Data Privacy shows "N/A"
+
+Owners list displays correctly
+
+UI State Tests
+Verify Edit and Delete buttons are visible after reload
+
+Confirm all toggle switches are in correct read-only state
+
+Validate all fields are non-editable
+
+Test that URL remains unchanged after reload
+
+Data Consistency Tests
+Verify service call returns updated data
+
+Compare saved data with displayed data after reload
+
+Validate no data loss during reload process
+
+Confirm all classifications and settings are preserved
+
+Error Handling
+Test page behavior if reload fails
+
+Verify error message display if service unavailable
+
+Test recovery mechanism if page reload interrupted
+
 
 
 //first query with hardcoded data
