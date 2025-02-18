@@ -1,128 +1,112 @@
-Section: External Sharing Functionality
+Navigation & Access
 
-Verify Default State of External Sharing Toggle
+Verify complete navigation path: Inventory -> M365 Group -> Public
 
-Navigate to the OneDrive Management page and check if the External Sharing toggle is disabled by default.
+Test breadcrumb functionality and accuracy
 
-Enable External Sharing and Validate Terms of Use Certification Popup
+Tab Navigation & Content Loading
 
-Click the toggle button to enable External Sharing and verify that the Terms of Use popup appears.
+Verify all tabs (Teams, Engage, Sharepoint, Streams, Planner, Others) are clickable
 
-Accept Terms of Use and Successfully Enable External Sharing
+Confirm correct count display and data loading for each tab
 
-Check if enabling External Sharing after accepting Terms of Use and providing a Business Justification is successful.
+Test tab switching performance
 
-Attempt to Proceed Without Accepting Terms of Use
+Global Search
 
-Try clicking 'Proceed' without selecting any checkboxes and verify that the button remains disabled.
+Test search functionality with valid/invalid inputs
 
-Attempt to Proceed Without Business Justification
+Verify search results accuracy and response time
 
-Verify that the system does not allow proceeding without filling the Business Justification field.
+List View Display
 
-Disable External Sharing
+Verify list items display with correct information
 
-Turn off the External Sharing toggle and confirm that it disables without showing Terms of Use popup.
+Test sorting and filtering (if available)
 
-Verify Default Expiration Period
+Verify privacy status display (Private/Public)
 
-Check if the default expiration period for external share links is set to 30 days.
+Deep Linking
 
-Change Expiration Period to 90 Days
+Test URL parameters for all services (/public/Teams, /public/Engage, etc.)
 
-Modify the default expiration period to 90 days and check if the update is saved successfully.
+Verify correct service loading based on URL
 
-Section: OneDrive Assisted Cleanup
+View Details Functionality
 
-Verify Assisted Cleanup Default Date
+Test View Details button functionality
 
-Click on 'OneDrive Assisted Cleanup' and confirm that the default cleanup date is set to 3 years prior.
+Verify detail screen loading and back navigation
 
-Select a Different Cleanup Date and Proceed
+Pagination
 
-Choose a different past date, click 'Proceed,' and validate that search results open in Edge.
+Verify pagination appears with >10 records
 
-Attempt to Proceed Without Selecting a Date
+Test page navigation (Next, Previous, specific page numbers)
 
-Clear the selected date and check if the 'Proceed' button remains disabled.
+Verify records per page limit (10 items)
 
-Verify Download and Delete Options in Search Results
+Status Indicators
 
-After Assisted Cleanup search results are displayed, verify that users can download or delete files.
+Verify "Action Pending" status display
 
-Section: Mobile Readiness Testing
+Test "External Share Disabled" indicator
 
-Verify Responsive Layout on Different Screen Sizes
+Verify other status indicators accuracy
 
-Test the site’s responsiveness on various screen sizes, including mobile, tablet, and desktop.
+Error Handling
 
-Test External Sharing Toggle on Mobile
+Test system behavior with network issues
 
-Ensure the toggle button is fully functional and the Terms of Use popup displays correctly on mobile devices.
+Verify error messages for invalid operations
 
-Validate Assisted Cleanup on Mobile
+Test recovery scenarios
 
-Check if the Assisted Cleanup feature works smoothly on mobile screens without layout issues.
+Performance
 
-Verify Touchscreen Usability
+Verify initial page load time
 
-Ensure all interactive elements, including buttons and toggles, are easy to use on touch screens.
+Test response time for tab switching
 
-Section: UI and Usability Improvements
+Measure API response times
 
-Color of Progress Bar
+Browser Compatibility
 
-Verify that the progress bar displays the correct color based on usage percentage.
+Test on major browsers (Chrome, Firefox, Edge, Safari)
 
-Change GB to TB
+Verify responsive design on different screen sizes
 
-Ensure that storage units are correctly displayed in TB instead of GB where applicable.
+Security
 
-Instruction UI Fix
+Verify authentication requirements
 
-Check if instructions are clear, correctly formatted, and visible.
+Test access permissions
 
-OneDrive Assistance Cleanup UI Fix
+Verify secure API endpoints
 
-Validate that the Assisted Cleanup UI is properly aligned and all buttons are functional.
+Data Consistency
 
-OneDrive for Business External Sharing - Terms of Use and User Certification POP UI
+Verify data accuracy across tabs
 
-Ensure the Terms of Use popup appears properly, is readable, and functions correctly.
+Test data persistence during navigation
 
-Detail Hyperlink is Missing
+Verify count accuracy in tab headers
 
-Verify that all hyperlinks, including 'More details,' are present and functional.
+UI/UX
 
-Fix Review UI & Links
+Verify visual elements alignment
 
-Ensure that all review UI components and links work correctly.
+Test color contrast and accessibility
 
-Update and Refresh is Working
+Verify responsive behavior
 
-Test if page updates and refresh functionality work without data loss or lag.
+Service Integration
 
-Notification Missing Upon Save/Update
+Test integration between different services
 
-Check if a confirmation notification is displayed when saving or updating settings.
+Verify data synchronization
 
-Section: Service-Related Tests
-
-OneDrive App on Load - Fetch Service and Show Data
-
-Verify that when the OneDrive app loads, it fetches data from the service and correctly displays it.
-
-Enable/Disable External Sharing Based on Service Data
-
-Ensure that the External Sharing toggle reflects the data fetched from the service.
-
-Update Settings and Verify Data Save
-
-When the user changes their settings and clicks 'Update,' verify that the data is saved correctly.
-
-Show Notification Upon Saving Data
-
-Ensure that a confirmation notification appears after successfully saving settings.
+Test cross-service functionality
 
 
 //first query with hardcoded data
