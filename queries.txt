@@ -1,347 +1,52 @@
-Field Validation Test Cases
-Title Field Tests
-Verify Title field is mandatory and displays error if empty
+Group Classification Section
+Verify Division field is disabled and displays correct value
 
-Test maximum character length restrictions
+Verify Finance field is disabled and shows correct information
 
-Validate special character handling
+Verify Function field is disabled and displays accurately
 
-Test duplicate title validation if applicable
+Verify TT CTS field is disabled and shows proper value
 
-Data Type Field Tests (Multi-select)
-Verify at least one Data Type must be selected
+Verify Country field is disabled and displays "Czech Republic"
 
-Test multiple selection functionality
+Verify Owners field is disabled and shows all assigned owners
 
-Select multiple values
+Data Type Section
+Verify Application Code field is disabled and shows correct value
 
-Deselect values
+Verify Business Criticality field is disabled and displays properly
 
-Select all/Deselect all if available
+Verify Low field is disabled and shows correct information
 
-Validate error message when no option is selected
+Verify Data Privacy field is disabled and displays accurately
 
-Test maximum number of selections allowed
+Verify N/A field is disabled and shows proper value
 
-Verify selected values are properly displayed
+Restore Functionality Section
+Verify "I certify" checkbox is enabled and clickable
 
-Owners Field Tests
-Verify minimum 2 owners requirement
+Verify Restore Asset button is disabled when checkbox is unchecked
 
-Test error message when adding only 1 owner
+Verify Restore Asset button becomes enabled only after checking "I certify" checkbox
 
-Validate successful case with 2+ owners
+Verify all form fields remain disabled regardless of checkbox state
 
-Test owner search/selection functionality
+Verify clicking Restore Asset button after certification successfully restores the deleted item
 
-Test removal of owners
+Verify proper error message displays if restore action fails
 
-Prevent removal if it would result in less than 2 owners
+Verify certification text is clearly visible and readable
 
-Verify duplicate owner prevention
+Verify all policy links in certification text are disabled but visible
 
-Test owner field validation messages
+External Sharing Section
+Verify External Sharing Updates section is disabled
 
-Enable Public Access Toggle Tests
-Test popup appearance when toggle is enabled
+Verify Group Settings section is disabled
 
-Verify all checkboxes in popup are mandatory
+Verify all sharing-related information is read-only
 
-Test submission with missing checkboxes
-
-Verify error messages
-
-Test justification field in popup
-
-Verify it's mandatory
-
-Test character limits
-
-Test empty submission
-
-Verify popup can be cancelled
-
-Test successful submission with all requirements met
-
-External Sharing Tests
-Test Enable/Disable External Sharing toggle
-
-Domain Input Validation:
-
-Test single domain input
-
-Test multiple domain inputs
-
-Verify domain format validation (e.g., example.com)
-
-Test invalid domain formats
-
-Test duplicate domain prevention
-
-Verify domain removal functionality
-
-Test maximum number of allowed domains
-
-Validate error messages for invalid domains
-
-Dropdown Field Tests (Division, Function, Country, etc.)
-Verify all dropdown fields are mandatory
-
-Test error messages when no selection is made
-
-For each dropdown:
-
-Test single selection functionality
-
-Verify selected value is properly displayed
-
-Test search functionality if available
-
-Verify dropdown list is complete and accurate
-
-Business Criticality Tests
-Verify selection is mandatory
-
-Test different criticality level selections
-
-Validate impact on other fields based on selection
-
-Data Privacy Tests
-Verify selection is mandatory
-
-Test different privacy level selections
-
-Validate related field dependencies
-
-Integration Test Cases
-Save Operation Tests
-Verify all mandatory fields must be filled before save
-
-Test save operation with minimum required fields
-
-Test save operation with all fields filled
-
-Verify proper error handling for invalid combinations
-
-Test save operation with maximum allowed values
-
-Cancel Operation Tests
-Verify changes are discarded on cancel
-
-Test cancel confirmation dialog if implemented
-
-Verify return to previous state
-
-Error Handling Tests
-Test field-level error messages
-
-Verify form-level error messages
-
-Test error message clarity and accuracy
-
-Verify error state styling
-
-Test error recovery paths
-
-Performance Tests
-Test response time for field validations
-
-Verify dropdown load times
-
-Test multi-select performance with maximum selections
-
-Verify domain validation response time
-
-
-Service Integration Tests
-Initial Page Load Tests
-Verify service call with correct ID and group type parameters
-
-Test URL format: /inventory/teams/{id}?groupType={type}
-
-Validate correct parsing of URL parameters
-
-Test response handling for different group types:
-
-Teams (28)
-
-Engage (6)
-
-Sharepoint (3)
-
-Streams (1)
-
-Planner (2)
-
-Others (20)
-
-Verify error handling for invalid ID/group type combinations
-
-Deep Linking Tests
-Test direct URL access scenarios:
-
-Valid ID and group type
-
-Invalid ID with valid group type
-
-Valid ID with invalid group type
-
-Missing parameters
-
-Verify URL parameter encoding/decoding
-
-Test browser history navigation
-
-Back button functionality
-
-Forward button functionality
-
-Verify URL sharing functionality
-
-Test bookmark accessibility
-
-Data Loading Tests
-Verify loading state indicators
-
-Test service timeout scenarios
-
-Validate error state handling:
-
-404 Not Found
-
-403 Forbidden
-
-500 Server Error
-
-Test data refresh on URL parameter change
-
-Service Response Validation
-Verify all required fields are present in service response:
-
-Title
-
-URL
-
-Division
-
-Function
-
-Country
-
-Data Type
-
-Business Criticality
-
-Data Privacy
-
-Owners list
-
-Test handling of partial data responses
-
-Validate data type conversions
-
-Test response caching if implemented
-
-State Management Tests
-Verify state persistence during tab navigation
-
-Test state recovery after browser refresh
-
-Validate form state management with URL parameters
-
-Test concurrent request handling
-
-Performance Tests
-Measure initial page load time
-
-Test response time for different group types
-
-Verify service call optimization
-
-Test caching effectiveness
-
-Monitor network payload size
-
-Security Tests
-Verify authentication requirements for deep links
-
-Test authorization for different user roles
-
-Validate URL parameter sanitization
-
-Test cross-site scripting prevention
-
-Verify secure service communication
-
-Browser Compatibility Tests
-Test deep linking across different browsers
-
-Verify URL handling in mobile browsers
-
-Test service integration across browsers
-
-Validate responsive behavior with URL parameters
-
-Save Operation Tests
-Verify successful form submission with all valid fields:
-
-All mandatory fields filled
-
-Data Type selections made
-
-Minimum 2 owners added
-
-All required checkboxes selected (if applicable)
-
-Valid domain entries (if external sharing enabled)
-
-Page Reload Validation
-Verify page automatically reloads after successful save
-
-Confirm all fields switch to read-only mode after reload
-
-Validate displayed data matches the recently saved values:
-
-Title shows "My Guest Team Testing-[External]"
-
-Division shows "Finance"
-
-Function shows "DATA, DIGITAL & IT"
-
-Country shows "Switzerland"
-
-Data Type shows "Application Data & Interfaces"
-
-Business Criticality shows "Low"
-
-Data Privacy shows "N/A"
-
-Owners list displays correctly
-
-UI State Tests
-Verify Edit and Delete buttons are visible after reload
-
-Confirm all toggle switches are in correct read-only state
-
-Validate all fields are non-editable
-
-Test that URL remains unchanged after reload
-
-Data Consistency Tests
-Verify service call returns updated data
-
-Compare saved data with displayed data after reload
-
-Validate no data loss during reload process
-
-Confirm all classifications and settings are preserved
-
-Error Handling
-Test page behavior if reload fails
-
-Verify error message display if service unavailable
-
-Test recovery mechanism if page reload interrupted
+These test cases cover the main functionality while ensuring the delete screen maintains proper disabled states and only allows restoration through the certification process.
 
 
 
