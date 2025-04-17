@@ -77,3 +77,30 @@ function findDependencyReferences(startPath, searchStr) {
 
 // Start search from current directory
 findDependencyReferences('.', 'm365-monorepo’);
+
+
+function validateEmail(email: string, allowedDomains: string[]): boolean {
+  // Basic email format validation
+  const basicEmailRegex = /^[a-zA-Z0-9](?:[a-zA-Z0-9._+-]*[a-zA-Z0-9])?@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z0-9-]+$/;
+  
+  // Check basic email format
+  if (!basicEmailRegex.test(email)) {
+    return false;
+  }
+  
+  // Additional validation checks
+  if (email.length > 254) {
+    return false; // Email too long
+  }
+  
+  const localPart = email.split('@')[0];
+  if (localPart.length > 64) {
+    return false; // Local part too long
+  }
+  
+  // Check if the email ends with any of the allowed domains
+  const domain = email.split('@')[1].toLowerCase();
+  return allowedDomains.some(allowedDomain => 
+    domain === allowedDomain.toLowerCase() || domain.endsWith('.' + allowedDomain.toLowerCase())
+  );
+}
